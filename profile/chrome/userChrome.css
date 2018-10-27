@@ -1,0 +1,153 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Customizable variables */
+:root {
+  --x-background-color: #1f1f1f;
+  --x-font-size: 9pt; /* This is pretty small */
+  --x-tab-height: 28px;
+
+  --x-background-decl: var(--x-background-color) !important;
+  --x-font-decl: var(--x-font-size) monospace !important;
+}
+
+/**
+ * Fuck around with the header bar
+ */
+
+#navigator-toolbox { display: flex; }
+#nav-bar { order: 1; flex-grow: 0; }
+#TabsToolbar { order: 2; flex-grow: 1; }
+
+/**
+ * Tabs stuff
+ */
+
+/* Use the friendly grey background colour. */
+#TabsToolbar,
+.tabbrowser-tab[visuallyselected="true"]:-moz-lwtheme {
+  background: var(--x-background-decl);
+}
+
+/* Make space for
+ *  - the settings menu, which is moved to the right using position: fixed, so exempt from the flexbox stuff
+ *  - the all tabs button, which is a child of this element but is displayed outside it for unknown reasons */
+#TabsToolbar { white-space: nowrap; margin-right: 60px !important; }
+
+/* Set tab height. */
+#tabbrowser-tabs,
+#tabbrowser-tabs .tabbrowser-arrowscrollbox { min-height: var(--x-tab-height) !important; }
+/* This shouldn't be necessary but it is; probably some element I don't know about is pushing it to be bigger… */
+#TabsToolbar { height: var(--x-tab-height); }
+
+/* Prevent the scroll buttons from overflowing vertically. */
+.tabbrowser-arrowscrollbox .scrollbutton-up,
+.tabbrowser-arrowscrollbox .scrollbutton-down { margin-bottom: 0 !important; }
+/* Prevent the all tabs button from overflowing. margin-bottom doesn't work here because FF has its
+ * own !important style for it, so instead we compensate for the margin by decreasing the height. */
+#alltabs-button { height: calc(var(--x-tab-height) - 2px) !important; }
+
+/* Set text labels on tabs. */
+tab { font: var(--x-font-decl); }
+
+/* The tab line is used to indicate focus, but we already have background colour to do that. */
+tab .tab-line { display: none; }
+
+/* Let tab labels cut off at the very edge on the right. */
+tab .tab-content { padding: 0 0 0 8px; }
+
+/* Remove the line at the end of the tab bar. */
+tab.tabbrowser-tab::after { content: none !important; }
+
+/* Just use middle click to close. */
+.tab-close-button.close-icon { display: none; }
+
+/* Just use Ctrl+T. */
+.tabs-newtab-button, #new-tab-button { display: none; }
+
+/**
+ * Menu bar
+ */
+
+/* When hidden, don't have any padding that may cause it to take up a few px at the top of the window. */
+#toolbar-menubar[inactive] { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+/* Show it _over_ the tab bar when visible. */
+#toolbar-menubar { position: absolute; background: black; z-index: 10; }
+/* Always cover the entire tab bar. */
+#toolbar-menubar { width: 100%; height: var(--x-tab-height); }
+#toolbar-menubar .menubar-text { height: var(--x-tab-height); line-height: var(--x-tab-height) !important; }
+
+/* Set font used in menu items. */
+#toolbar-menubar .menubar-text { font: var(--x-font-decl); }
+
+/**
+ * Navbar
+ */
+
+/* Force the height, not sure what's causing it to grow vertically. */
+#nav-bar { height: var(--x-tab-height) !important; }
+
+/* Just use Ctrl+R. */
+#stop-reload-button { display: none; }
+/* idk I don't use it, maybe do Ctrl+L then "about:newtab"? */
+#home-button { display: none; }
+/* You can get here thru settings I guess. */
+#developer-button { display: none; }
+
+/* Set default urlbar width. */
+#urlbar-container { min-width: 0px !important; }
+#urlbar { width: 400px !important; }
+
+/* Reset */
+#urlbar { border: none !important; background: none !important; }
+/* Line it up with the tab bar. */
+#urlbar { min-height: var(--x-tab-height) !important; margin: 0 !important; }
+/* Same font as the rest. */
+#urlbar { font: var(--x-font-decl); }
+
+/* Make icons smaller so they fit in the shortened bar. */
+#urlbar .urlbar-page-action { height: 24px; }
+
+/* I didn't even know this existed until I worked on this theme! */
+#urlbar .urlbar-history-dropmarker { display: none; }
+/* Also never used this one… */
+#urlbar #pageActionButton { display: none; }
+/* Separator is not required. */
+#urlbar #pageActionSeparator { display: none; }
+/* Dev Edition only: I haven't used this button yet. */
+#urlbar #pageAction-urlbar-webcompat-reporter_mozilla_org { display: none; }
+/* Only show the identity icon when hovering the URL bar. */
+/* #urlbar:not(:hover) #identity-icon { display: none; } */
+/* Clicking the connection icon has the same effect as clicking the identity icon. */
+#urlbar #identity-icon { display: none; }
+/* Hide the identity labels when the bar is focused so there's more space to type. */
+#urlbar[focused] #identity-icon-labels { display: none; }
+
+/* Move the settings button to the top right. */
+#navigator-toolbar { padding-right: 28px; }
+#PanelUI-button { position: fixed; top: 0; right: 0; height: 28px; width: 28px; }
+/* Remove some border-image stuff, idk what that's for. */
+#PanelUI-button { border: none; }
+/* Clear some paddings. */
+#PanelUI-menu-button { padding-inline-start: 0; padding-inline-end: 0; }
+#PanelUI-menu-button .toolbarbutton-badge-stack { padding: 0; }
+/* Center the menu icon. */
+#PanelUI-button { display: flex; justify-content: center; align-items: center; }
+
+/* Remove whitespace around history buttons. */
+#back-button, #forward-button { padding: 0 4px !important; }
+/* Make em small. */
+#back-button > .toolbarbutton-icon,
+#forward-button > .toolbarbutton-icon {
+  width: 24px !important; height: 24px !important;
+  padding: 4px !important; margin: 0 !important;
+}
+
+/* Align badges on extension buttons. */
+#nav-bar .badged-button .toolbarbutton-badge { margin: 0 !important; }
+
+#urlbar-container,
+#nav-bar-overflow-button,
+#PanelUI-menu-button, {
+  background: var(--x-background-decl);
+}

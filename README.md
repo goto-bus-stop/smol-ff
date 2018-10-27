@@ -4,6 +4,8 @@ A `userChrome.css` based theme for Firefox that removes all the stuff I don't ne
 
 This is only tested with latest FF Dev Edition, on Arch Linux, on a 1366×768 screen, with Firefox configured to the dark theme, with normal density, and without any of the spacer stuff that it has in the nav bar by default. I don't guarantee that it works _anywhere else whatsoever_.
 
+![](./screenshot.png)
+
 ## Install
 
 Put the `profile/chrome/userChrome.css` file in your FF profile.

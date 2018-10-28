@@ -116,10 +116,8 @@ tab.tabbrowser-tab::after { content: none !important; }
 #urlbar #pageActionSeparator { display: none; }
 /* Dev Edition only: I haven't used this button yet. */
 #urlbar #pageAction-urlbar-webcompat-reporter_mozilla_org { display: none; }
-/* Only show the identity icon when hovering the URL bar. */
-/* #urlbar:not(:hover) #identity-icon { display: none; } */
-/* Clicking the connection icon has the same effect as clicking the identity icon. */
-#urlbar #identity-icon { display: none; }
+/* Clicking the connection icon has the same effect as clicking the identity icon, hide it. */
+#urlbar #identity-icon { width: 0; margin-right: -4px; }
 /* Hide the identity labels when the bar is focused so there's more space to type. */
 #urlbar[focused] #identity-icon-labels { display: none; }
 

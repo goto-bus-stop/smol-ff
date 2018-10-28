@@ -117,7 +117,7 @@ tab.tabbrowser-tab::after { content: none !important; }
 /* Dev Edition only: I haven't used this button yet. */
 #urlbar #pageAction-urlbar-webcompat-reporter_mozilla_org { display: none; }
 /* Clicking the connection icon has the same effect as clicking the identity icon, hide it. */
-#urlbar #identity-icon { width: 0; margin-right: -4px; }
+#urlbar #identity-icon { width: 0 !important; margin-right: -4px; }
 /* Hide the identity labels when the bar is focused so there's more space to type. */
 #urlbar[focused] #identity-icon-labels { display: none; }
 
